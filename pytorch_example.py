@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 training_data = datasets.MNIST(
     root="data",
     train=True,
-    download=True,
+    download=False,
     transform=ToTensor(),
 )
 
@@ -18,7 +18,7 @@ training_data = datasets.MNIST(
 test_data = datasets.MNIST(
     root="data",
     train=False,
-    download=True,
+    download=False,
     transform=ToTensor(),
 )
 
