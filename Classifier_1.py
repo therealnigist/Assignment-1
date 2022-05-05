@@ -13,11 +13,11 @@ class NeuralNetwork(nn.Module):
         super(NeuralNetwork, self).__init__()
         self.flatten = nn.Flatten()
         self.linear_relu_stack = nn.Sequential(
-            nn.Linear(28*28, 512),
+            nn.Linear(28*28, 64),
             nn.ReLU(),
-            nn.Linear(512, 512),
+            nn.Linear(64, 64),
             nn.ReLU(),
-            nn.Linear(512, 10),
+            nn.Linear(64, 10),
             nn.ReLU()
         )
 
@@ -62,12 +62,21 @@ def main():
     loss_fn = nn.CrossEntropyLoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=1e-3)
 
+
+    # training
     epochs = 5
     for t in range(epochs):
         print(f"Epoch {t+1}\n-------------------------------")
         train(train_dataloader, model, loss_fn, optimizer, device=device)
         test(test_dataloader, model, device=device, loss_fn=loss_fn)
     print("Done!")
+
+    # saving model
+    torch.save(model.state_dict(), "Classifier_1_model.pth")
+    # print("Saved PyTorch Model State to model.pth")
+
+
+
 
 
 def train(dataloader, model, loss_fn, optimizer, device):
