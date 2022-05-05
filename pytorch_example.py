@@ -4,23 +4,25 @@ from torch import nn
 from torch.utils.data import DataLoader
 from torchvision import datasets
 from torchvision.transforms import ToTensor, Lambda, Compose
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 # Download training data from open datasets.
-training_data = datasets.MNIST(
-    root="data",
-    train=True,
-    download=False,
-    transform=ToTensor(),
-)
 
-# Download test data from open datasets.
-test_data = datasets.MNIST(
-    root="data",
-    train=False,
-    download=False,
-    transform=ToTensor(),
-)
+def dataDownloads():
+    training_data = datasets.MNIST(
+        root="data",
+        train=True,
+        download=False,
+        transform=ToTensor(),
+    )
+
+    # Download test data from open datasets.
+    test_data = datasets.MNIST(
+        root="data",
+        train=False,
+        download=False,
+        transform=ToTensor(),
+    )
 
 def train(dataloader, model, loss_fn, optimizer):
     size = len(dataloader.dataset)
