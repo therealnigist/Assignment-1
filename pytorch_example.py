@@ -66,7 +66,7 @@ def main():
     for t in range(epochs):
         print(f"Epoch {t+1}\n-------------------------------")
         train(train_dataloader, model, loss_fn, optimizer, device)
-        test(test_dataloader, model, loss_fn)
+        test(test_dataloader, model, device)
     print("Done!")
 
 
@@ -89,15 +89,16 @@ def train(dataloader, model, loss_fn, optimizer, device):
             loss, current = loss.item(), batch * len(X)
             print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
 
-def test(dataloader, model, loss_fn):
+def test(dataloader, model, device):
     size = len(dataloader.dataset)
     model.eval()
     test_loss, correct = 0, 0
-    global device
+    # global device
     with torch.no_grad():
         for X, y in dataloader:
             X, y = X.to(device), y.to(device)
             pred = model(X)
+            global loss_fn
             test_loss += loss_fn(pred, y).item()
             correct += (pred.argmax(1) == y).type(torch.float).sum().item()
     test_loss /= size
