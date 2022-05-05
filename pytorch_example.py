@@ -93,6 +93,7 @@ def test(dataloader, model, loss_fn):
     size = len(dataloader.dataset)
     model.eval()
     test_loss, correct = 0, 0
+    global device
     with torch.no_grad():
         for X, y in dataloader:
             X, y = X.to(device), y.to(device)
